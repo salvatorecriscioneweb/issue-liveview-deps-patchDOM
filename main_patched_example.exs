@@ -47,12 +47,11 @@ defmodule Example.HomeLive do
           const that = this;
           this.el.dataset.timesClicked = 0;
           this.el.addEventListener("click", e => {
-            // This not works for example
             that.el.dataset.timesClicked = (parseInt(that.el.dataset.timesClicked) || 0) + 1;
           });
         },
         updated() {
-          console.log("Button updated", this.el.dataset.timesClicked); // This will give undefined because the dataset is removed in update
+          console.log("Button updated", this.el.dataset.timesClicked); // Now this works
         },
       };
       let liveSocket = new window.LiveView.LiveSocket("/live", window.Phoenix.Socket, {
