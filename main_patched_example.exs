@@ -13,7 +13,7 @@ Mix.install([
   {:phoenix, "~> 1.7"},
   # please test your issue using the latest version of LV from GitHub!
   {:phoenix_live_view,
-   github: "phoenixframework/phoenix_live_view", branch: "main", override: true}
+   path: "../phoenix_live_view", override: true}
 ])
 
 # build the LiveView JavaScript assets (this needs mix and npm available in your path!)
@@ -45,6 +45,7 @@ defmodule Example.HomeLive do
       const myButtonHook = {
         mounted() {
           const that = this;
+          this.ignoreDOMPatchAttributes(["data-times-clicked"]);
           this.el.dataset.timesClicked = 0;
           this.el.addEventListener("click", e => {
             that.el.dataset.timesClicked = (parseInt(that.el.dataset.timesClicked) || 0) + 1;
@@ -55,15 +56,7 @@ defmodule Example.HomeLive do
         },
       };
       let liveSocket = new window.LiveView.LiveSocket("/live", window.Phoenix.Socket, {
-          hooks: {myButtonHook},
-          dom: {
-            onBeforeElUpdated(fromEl, toEl) {
-              const isMyHook = fromEl.getAttribute("phx-hook") == "myButtonHook";
-              if (isMyHook) {
-                toEl.setAttribute("data-times-clicked", fromEl.getAttribute("data-times-clicked"));
-              }
-            }
-          }
+          hooks: {myButtonHook}
       })
       liveSocket.connect()
     </script>

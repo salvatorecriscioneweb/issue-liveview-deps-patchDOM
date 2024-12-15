@@ -11,9 +11,9 @@ Mix.install([
   {:plug_cowboy, "~> 2.5"},
   {:jason, "~> 1.0"},
   {:phoenix, "~> 1.7"},
-  # please test your issue using the latest version of LV from GitHub!
+  # Using My OWN Phoenix Live View from master
   {:phoenix_live_view,
-   github: "phoenixframework/phoenix_live_view", branch: "main", override: true}
+   path: "../phoenix_live_view", override: true}
 ])
 
 # build the LiveView JavaScript assets (this needs mix and npm available in your path!)
